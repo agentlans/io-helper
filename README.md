@@ -1,17 +1,18 @@
 # io-helper
 
 A Python package to make reading and writing files easier.
-Clearer and more concise syntax.
+Concise syntax. Less typing.
 
 ---
 
-# Install
+## Install
 
 `pip install git+https://github.com/agentlans/io-helper.git`
 
-# Use
+## Use
 
 ```python
+from io_helper import TextFile, JSONLFile, SQLite
 
 # Read lines of text file
 f = TextFile("/tmp/file.txt")
@@ -19,7 +20,7 @@ for line in f:
 	print(f)
 f.close()
 
-# JSON example
+# JSON lines example
 j = JSONLFile("/tmp/foo.json", 'w')
 j.write([1,2,3])
 j.close()
@@ -34,7 +35,8 @@ for x in db.query("SELECT * FROM Foo"):
 db.close()
 ```
 
-# Author, Licence
+## Author, Licence
 
 Copyright :copyright: 2024 by Alan Tseng
+
 GNU General Public Licence 3.0
