@@ -3,15 +3,19 @@ import json
 import sqlite3
 
 class File:
-	def __init__(self, filename, mode='r'):
-		self.file = open(filename, mode=mode)
+	def __init__(self, filename, mode='r', encoding='utf-8'):
+		self.file = open(filename, mode=mode, encoding=encoding)
 	def close(self):
 		self.file.close()
+	def __enter__(self):
+		return self
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		self.close()
 
 class TextFile(File):
-	def __init__(self, filename, mode='r'):
+	def __init__(self, filename, mode='r', encoding='utf-8'):
 		# Inherit all the methods and properties
-		super().__init__(filename, mode=mode)
+		super().__init__(filename, mode=mode, encoding=encoding)
 	def __iter__(self):
 		return self
 	def __next__(self):
@@ -85,3 +89,7 @@ class SQLite:
 	def commit(self):
 		"Commit changes to the database after execute."
 		self.con.commit()
+	def __enter__(self):
+		return self
+	def __exit__(self, exc_type, exc_val, exc_tb):
+		self.close()
